@@ -2,14 +2,10 @@ import { useState } from "react";
 import Caja from "./Caja"
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+
 export default function Matrix() {
-    const tareas = [
-        {nombre: "tarea1", caja: "do"}, 
-        {nombre: "tarea2", caja: "decide"}, 
-        {nombre: "tarea3", caja: "delegate"},
-        {nombre: "tarea4", caja: "delete"}
-    ]
-    const [listaTareas, setListaTareas] = useState(tareas)
+    const tareas = localStorage.getItem("tareas")
+    const [listaTareas, setListaTareas] = useState(tareas ? JSON.parse(tareas) : [])
 
     function filtarTareas(listaTareas, tipo) {
         return listaTareas.filter(tarea => tarea.caja === tipo) 
@@ -31,6 +27,10 @@ export default function Matrix() {
         console.log(nuevaListaTareas)
         setListaTareas(nuevaListaTareas)
     }
+
+    const guardarTareas = () =>{
+        localStorage.setItem("tareas", JSON.stringify(listaTareas))
+    }
     return (
         <>
           <DndProvider backend={HTML5Backend}>
@@ -45,6 +45,7 @@ export default function Matrix() {
                 <Caja tareas={tareasDelegate} bgColor=" bg-red-500" onDrop={moverItem} nombreCaja="delegate"></Caja>
                 <Caja tareas={tareasDelete} bgColor="bg-gray-500" onDrop={moverItem} nombreCaja="delete"></Caja>
             </div>
+            <button onClick={() => guardarTareas()}>Guardar</button>
         </DndProvider>
         </>
     )
