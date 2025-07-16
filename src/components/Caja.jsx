@@ -1,11 +1,14 @@
 import { useDrop } from 'react-dnd';
 import Tarea from './Tarea';
+import { useTareas } from '../context/TareaContext';
 
 export default function Caja({tareas, bgColor, nombreCaja, onDrop}) {
+    const {moverItem} = useTareas()
+
     const [, drop] = useDrop({
         accept: 'TAREA',
         drop: (item) =>{
-            onDrop(item.nombre, nombreCaja)
+            moverItem(item.nombre, nombreCaja)
         },
         collect: monitor => ({
         isOver: !!monitor.isOver(),
