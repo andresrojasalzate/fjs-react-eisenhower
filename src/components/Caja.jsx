@@ -16,7 +16,7 @@ export default function Caja({tareas, bgColor, nombreCaja, onDrop}) {
         <>
             <div ref={drop} className={`min-w-[220px] min-h-[220px] rounded-xl ${bgColor}`}>
                 {tareas.map(tarea =>(
-                    <Tarea key={tarea.nombre} nombre={tarea.nombre}></Tarea>
+                    <Tarea key={tarea.nombre} tarea={tarea}></Tarea>
                 ))}
             </div>
         </>

@@ -17,19 +17,22 @@ export default function Matrix() {
     const tareasDelete = filtarTareas(listaTareas, "delete")
 
     const moverItem = (item, caja) =>{
-        console.log(item, caja)
         const nuevaListaTareas = listaTareas.map(tarea =>{
             if(tarea.nombre === item){
                  return { ...tarea, caja }
             }
             return tarea
         })
-        console.log(nuevaListaTareas)
         setListaTareas(nuevaListaTareas)
     }
 
     const guardarTareas = () =>{
         localStorage.setItem("tareas", JSON.stringify(listaTareas))
+    }
+
+    const borrarTarea = (tareaBorrada) =>{
+        const nuevaListaTareas = listaTareas.filter(tarea => tarea !== tareaBorrada)
+        setListaTareas(nuevaListaTareas)
     }
     return (
         <>
